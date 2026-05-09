@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danger Birthday Surprise</title>
+    <title>Find The Birthday Gift</title>
 
     <style>
         * {
@@ -15,129 +15,127 @@
         }
         
         body {
-            height: 100vh;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff0080, #7928ca, #2b32ff);
             display: flex;
             justify-content: center;
             align-items: center;
-            background: black;
-            overflow: hidden;
             color: white;
+            overflow: hidden;
         }
         
         .container {
+            width: 95%;
+            max-width: 1000px;
             text-align: center;
-            z-index: 2;
         }
         
         h1 {
-            font-size: 4rem;
-            color: red;
-            text-shadow: 0 0 20px red;
-            animation: blink 1s infinite;
+            margin-bottom: 15px;
+            font-size: 3rem;
         }
         
         p {
-            margin-top: 15px;
+            margin-bottom: 20px;
             font-size: 1.2rem;
-            color: #ddd;
         }
         
-        button {
-            margin-top: 30px;
-            padding: 15px 35px;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 20px;
+            border: none;
+            border-radius: 15px;
+            background: white;
+            color: #7928ca;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .btn:hover {
+            transform: scale(1.08);
+        }
+        
+        #attempts {
+            margin-top: 20px;
+            font-size: 1.3rem;
+        }
+        
+        #revealBtn {
+            margin-top: 25px;
+            padding: 15px 30px;
             border: none;
             border-radius: 50px;
             background: red;
             color: white;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 0 20px red;
-        }
-        
-        button:hover {
-            transform: scale(1.1);
-        }
-        
-        #warning {
-            margin-top: 25px;
-            font-size: 2rem;
+            font-size: 1rem;
             display: none;
-            animation: flash 0.5s infinite;
+            cursor: pointer;
         }
         
-        .bg {
-            position: absolute;
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            color: #7928ca;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 100;
+            transition: 0.4s;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .popup h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .popup button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            background: #7928ca;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .overlay {
+            position: fixed;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at center, rgba(255, 0, 0, 0.2), transparent 70%);
-            animation: pulse 2s infinite;
+            background: rgba(0, 0, 0, 0.7);
+            top: 0;
+            left: 0;
+            display: none;
         }
         
-        @keyframes blink {
-            0% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.3;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes flash {
-            0% {
-                color: red;
-            }
-            50% {
-                color: white;
-            }
-            100% {
-                color: red;
-            }
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-        
-        .shake {
-            animation: shake 0.2s infinite;
-        }
-        
-        @keyframes shake {
-            0% {
-                transform: translate(5px, 5px);
-            }
-            25% {
-                transform: translate(-5px, 0);
-            }
-            50% {
-                transform: translate(5px, -5px);
-            }
-            75% {
-                transform: translate(-5px, 5px);
-            }
-            100% {
-                transform: translate(5px, 0);
-            }
+        .overlay.show {
+            display: block;
         }
         
         @media(max-width:768px) {
             h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
-            #warning {
-                font-size: 1.5rem;
+            .btn {
+                padding: 15px;
             }
         }
     </style>
@@ -145,40 +143,197 @@
 
 <body>
 
-    <div class="bg"></div>
-
     <div class="container">
 
-        <h1>🚨 DANGER GIFT 🚨</h1>
+        <h1>🎁 Find The Secret Gift 🎂</h1>
 
-        <p>Don't click the button... 😈</p>
+        <p>Find the correct gift button within 7 attempts 😈</p>
 
-        <button onclick="activateAlarm()">
-        Open Gift
+        <div class="grid" id="grid"></div>
+
+        <div id="attempts">
+            Attempts Left : 7
+        </div>
+
+        <button id="revealBtn" onclick="revealGift()">
+        Reveal Answerx
     </button>
 
-        <div id="warning">
-            🚨 DANGER ALERT 🚨 <br> A special birthday gift has been delivered. <br> Did you get it? 🎁😈
-        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+    <div class="popup" id="popup">
+
+        <h2>🎉 HAPPY BIRTHDAY 🎂</h2>
+
+        <p>You found the secret gift 🎁😎</p>
+
+        <button onclick="closePopup()">
+        Close
+    </button>
 
     </div>
 
     <script>
-        function activateAlarm() {
+        const wrongMessages = [
 
-            document.body.classList.add("shake");
+            "❌ Nope! Use your Brain Motta 😈",
 
-            document.getElementById("warning").style.display = "block";
+            "🎁 Wrong box! click correct box papa",
 
-            let audio = new Audio(
-                "https://www.soundjay.com/misc/sounds/fail-buzzer-02.mp3"
-            );
+            "😂 Did you think this box Kesari",
 
-            audio.play();
+            " Always think Simple motta",
 
-            setTimeout(() => {
-                document.body.classList.remove("shake");
-            }, 5000);
+            "👀 Almost... But This is not Correct motta",
+
+            "⚠️ Such an Briliant girl but this is not the answer",
+
+            "🎂 Surprise this is not Correct box",
+
+            "😈 The real gift is hiding somewhere else Check"
+
+        ];
+        const grid = document.getElementById("grid");
+
+        const popup = document.getElementById("popup");
+
+        const overlay = document.getElementById("overlay");
+
+        const revealBtn = document.getElementById("revealBtn");
+
+        const attemptsText = document.getElementById("attempts");
+
+        let attempts = 7;
+
+        let gameOver = false;
+
+        // 17th button correct
+        let winningButton = 16;
+
+        // message index
+        let messageIndex = 0;
+
+        for (let i = 0; i < 30; i++) {
+
+            const button = document.createElement("button");
+
+            button.classList.add("btn");
+
+            button.innerText = "Gift " + (i + 1);
+
+            button.addEventListener("click", function() {
+
+                if (gameOver) return;
+
+                if (i === winningButton) {
+
+                    popup.classList.add("show");
+
+                    overlay.classList.add("show");
+
+                    popup.innerHTML = `
+                <h2>🎉 Advance Happy Birthday🎂</h2>
+                <p> I love you so much Papa </p>
+                <p> I AM THE GIFT DID YOU LIKE THIS</p>
+                <button onclick="closePopup()">
+                    Close
+                </button>
+            `;
+
+                    gameOver = true;
+
+                } else {
+
+                    // ARRAY MESSAGE IN ORDER
+                    let currentMessage =
+                        wrongMessages[messageIndex];
+
+                    // move to next message
+                    messageIndex++;
+
+                    // if array ends start again
+                    if (messageIndex >= wrongMessages.length) {
+
+                        messageIndex = 0;
+
+                    }
+
+                    popup.classList.add("show");
+
+                    overlay.classList.add("show");
+
+                    popup.innerHTML = `
+                <h2>❌ Wrong Gift</h2>
+                <p>${currentMessage}</p>
+                <button onclick="closePopup()">
+                    Try Again
+                </button>
+            `;
+
+                    button.disabled = true;
+
+                    button.style.background = "black";
+
+                    button.style.color = "white";
+
+                    button.innerText = "Wrong ❌";
+
+                    attempts--;
+
+                    attemptsText.innerText =
+                        "Attempts Left : " + attempts;
+
+                    if (attempts === 0) {
+
+                        gameOver = true;
+
+                        revealBtn.style.display =
+                            "inline-block";
+
+                        const allButtons =
+                            document.querySelectorAll(".btn");
+
+                        allButtons.forEach(btn => {
+
+                            btn.disabled = true;
+
+                            btn.style.opacity = "0.5";
+
+                        });
+
+                    }
+
+                }
+
+            });
+
+            grid.appendChild(button);
+
+        }
+
+        function revealGift() {
+
+            const buttons =
+                document.querySelectorAll(".btn");
+
+            buttons[winningButton].style.background =
+                "gold";
+
+            buttons[winningButton].style.color =
+                "black";
+
+            buttons[winningButton].innerText =
+                "🎁 SECRET GIFT";
+
+        }
+
+        function closePopup() {
+
+            popup.classList.remove("show");
+
+            overlay.classList.remove("show");
 
         }
     </script>
