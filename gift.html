@@ -4,138 +4,153 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find The Birthday Gift</title>
+
+    <title>Birthday Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
         
         body {
             min-height: 100vh;
-            background: linear-gradient(135deg, #ff0080, #7928ca, #2b32ff);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
             overflow: hidden;
+            background: linear-gradient(135deg, #ff0080, #7928ca, #2b32ff);
+            position: relative;
+            color: white;
+        }
+        
+        .bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.5;
+            animation: float 6s infinite ease-in-out alternate;
+        }
+        
+        .circle1 {
+            width: 250px;
+            height: 250px;
+            background: #ff66c4;
+            top: -50px;
+            left: -50px;
+        }
+        
+        .circle2 {
+            width: 300px;
+            height: 300px;
+            background: #6c63ff;
+            bottom: -100px;
+            right: -80px;
+            animation-delay: 2s;
+        }
+        
+        @keyframes float {
+            from {
+                transform: translateY(0px);
+            }
+            to {
+                transform: translateY(30px);
+            }
         }
         
         .container {
-            width: 95%;
-            max-width: 1000px;
+            width: 90%;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(14px);
+            border-radius: 30px;
+            padding: 40px 30px;
             text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            z-index: 2;
+        }
+        
+        .teddy {
+            width: 180px;
+            margin-bottom: 10px;
         }
         
         h1 {
-            margin-bottom: 15px;
-            font-size: 3rem;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
         }
         
-        p {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
         
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+        .login-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            margin-top: 35px;
         }
         
-        .btn {
-            padding: 20px;
+        .login-box input {
+            width: 100%;
+            padding: 16px 20px;
             border: none;
-            border-radius: 15px;
+            outline: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .login-box input::placeholder {
+            color: #eee;
+        }
+        
+        #loginBtn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 50px;
             background: white;
             color: #7928ca;
             font-size: 1rem;
-            font-weight: bold;
+            font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
         }
         
-        .btn:hover {
-            transform: scale(1.08);
+        #loginBtn:hover {
+            transform: scale(1.05);
+            background: #ffe082;
         }
         
-        #attempts {
-            margin-top: 20px;
-            font-size: 1.3rem;
-        }
-        
-        #revealBtn {
+        .message {
             margin-top: 25px;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 50px;
-            background: red;
-            color: white;
-            font-size: 1rem;
-            display: none;
-            cursor: pointer;
-        }
-        
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            background: white;
-            color: #7928ca;
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            z-index: 100;
-            transition: 0.4s;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-        }
-        
-        .popup.show {
-            transform: translate(-50%, -50%) scale(1);
-        }
-        
-        .popup h2 {
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-        
-        .popup button {
-            margin-top: 20px;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 30px;
-            background: #7928ca;
-            color: white;
-            cursor: pointer;
-        }
-        
-        .overlay {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            top: 0;
-            left: 0;
-            display: none;
-        }
-        
-        .overlay.show {
-            display: block;
+            font-size: 1.2rem;
+            color: #ffe082;
+            font-weight: 500;
         }
         
         @media(max-width:768px) {
             h1 {
                 font-size: 2rem;
             }
-            .btn {
-                padding: 15px;
+            .container {
+                padding: 30px 20px;
+            }
+            .teddy {
+                width: 140px;
             }
         }
     </style>
@@ -143,199 +158,166 @@
 
 <body>
 
+    <div class="bg-circle circle1"></div>
+
+    <div class="bg-circle circle2"></div>
+
     <div class="container">
 
-        <h1>🎁 Find The Secret Gift 🎂</h1>
+        <img src="https://media.tenor.com/dg7Th23TzFUAAAAi/teddy-bear-love.gif" class="teddy">
 
-        <p>Find the correct gift button within 7 attempts 😈</p>
+        <h1>🎂 Birthday Login 🎁</h1>
 
-        <div class="grid" id="grid"></div>
+        <p class="subtitle">
+            Enter your name to continue
+        </p>
 
-        <div id="attempts">
-            Attempts Left : 7
+        <div class="login-box">
+
+            <input type="text" placeholder="Enter your name" id="nameInput">
+
+            <button id="loginBtn">
+            Open Gift 🎀
+        </button>
+
         </div>
 
-        <button id="revealBtn" onclick="revealGift()">
-        Reveal Answerx
-    </button>
-
-    </div>
-
-    <div class="overlay" id="overlay"></div>
-
-    <div class="popup" id="popup">
-
-        <h2>🎉 HAPPY BIRTHDAY 🎂</h2>
-
-        <p>You found the secret gift 🎁😎</p>
-
-        <button onclick="closePopup()">
-        Close
-    </button>
+        <div class="message" id="message"></div>
 
     </div>
 
     <script>
-        const wrongMessages = [
+        const loginBtn =
+            document.getElementById("loginBtn");
 
-            "❌ Nope! Use your Brain Motta 😈",
+        const message =
+            document.getElementById("message");
 
-            "🎁 Wrong box! click correct box papa",
+        // CORRECT NAME
+        const correctName = "kesari";
 
-            "😂 Did you think this box Kesari",
-
-            " Always think Simple motta",
-
-            "👀 Almost... But This is not Correct motta",
-
-            "⚠️ Such an Briliant girl but this is not the answer",
-
-            "🎂 Surprise this is not Correct box",
-
-            "😈 The real gift is hiding somewhere else Check"
-
-        ];
-        const grid = document.getElementById("grid");
-
-        const popup = document.getElementById("popup");
-
-        const overlay = document.getElementById("overlay");
-
-        const revealBtn = document.getElementById("revealBtn");
-
-        const attemptsText = document.getElementById("attempts");
-
+        // TOTAL ATTEMPTS
         let attempts = 7;
 
-        let gameOver = false;
+        // ARRAY ERROR MESSAGES
+        const errorMessages = [
 
-        // 17th button correct
-        let winningButton = 16;
+            "I think so you put keshini its wrong",
 
-        // message index
+            "just use your brain Motta you can !!",
+
+            "Now you tried Motta correct 😅",
+
+            "Another nic name having think Mental",
+
+            " I think you not try Mental",
+
+            "It may be an Sweet name Think",
+
+            "Sweet pa It may be in Orange colour"
+
+        ];
+
+        // ARRAY INDEX
         let messageIndex = 0;
 
-        for (let i = 0; i < 30; i++) {
+        loginBtn.addEventListener("click", () => {
 
-            const button = document.createElement("button");
+            const name =
+                document.getElementById("nameInput")
+                .value
+                .trim()
+                .toLowerCase();
 
-            button.classList.add("btn");
+            // STOP AFTER 7 ATTEMPTS
+            if (attempts <= 0) {
 
-            button.innerText = "Gift " + (i + 1);
+                message.innerHTML =
+                    " Refresh and try Again";
 
-            button.addEventListener("click", function() {
+                message.style.color = "red";
 
-                if (gameOver) return;
+                return;
 
-                if (i === winningButton) {
+            }
 
-                    popup.classList.add("show");
+            // EMPTY INPUT
+            if (name === "") {
 
-                    overlay.classList.add("show");
+                message.innerHTML =
+                    "⚠️ Please enter your name";
 
-                    popup.innerHTML = `
-                <h2>🎉 Advance Happy Birthday🎂</h2>
-                <p> I love you so much Papa </p>
-                <p> I AM THE GIFT DID YOU LIKE THIS</p>
-                <button onclick="closePopup()">
-                    Close
-                </button>
-            `;
+                message.style.color = "#ffcccb";
 
-                    gameOver = true;
+                return;
 
-                } else {
+            }
 
-                    // ARRAY MESSAGE IN ORDER
-                    let currentMessage =
-                        wrongMessages[messageIndex];
+            // CORRECT NAME
+            if (name === correctName) {
 
-                    // move to next message
-                    messageIndex++;
+                message.innerHTML =
+                    "🎉 Login successful";
 
-                    // if array ends start again
-                    if (messageIndex >= wrongMessages.length) {
+                message.style.color =
+                    "#90ee90";
 
-                        messageIndex = 0;
+                setTimeout(() => {
 
-                    }
+                    window.location.href =
+                        "warn.html";
 
-                    popup.classList.add("show");
+                }, 1000);
 
-                    overlay.classList.add("show");
+            }
 
-                    popup.innerHTML = `
-                <h2>❌ Wrong Gift</h2>
-                <p>${currentMessage}</p>
-                <button onclick="closePopup()">
-                    Try Again
-                </button>
-            `;
+            // WRONG NAME
+            else {
 
-                    button.disabled = true;
+                // ARRAY MESSAGE IN ORDER
+                let currentMessage =
+                    errorMessages[messageIndex];
 
-                    button.style.background = "black";
+                message.innerHTML =
+                    currentMessage;
 
-                    button.style.color = "white";
+                message.style.color =
+                    "#ff4d6d";
 
-                    button.innerText = "Wrong ❌";
+                attempts--;
 
-                    attempts--;
+                // NEXT ARRAY MESSAGE
+                messageIndex++;
 
-                    attemptsText.innerText =
-                        "Attempts Left : " + attempts;
+                // STOP AT LAST ARRAY VALUE
+                if (messageIndex >=
+                    errorMessages.length) {
 
-                    if (attempts === 0) {
-
-                        gameOver = true;
-
-                        revealBtn.style.display =
-                            "inline-block";
-
-                        const allButtons =
-                            document.querySelectorAll(".btn");
-
-                        allButtons.forEach(btn => {
-
-                            btn.disabled = true;
-
-                            btn.style.opacity = "0.5";
-
-                        });
-
-                    }
+                    messageIndex =
+                        errorMessages.length - 1;
 
                 }
 
-            });
+                // SHOW ATTEMPTS
+                message.innerHTML +=
+                    `<br>Attempts Left : ${attempts}`;
 
-            grid.appendChild(button);
+                // BLOCK LOGIN AFTER 7
+                if (attempts === 0) {
 
-        }
+                    loginBtn.disabled = true;
 
-        function revealGift() {
+                    loginBtn.style.opacity =
+                        "0.5";
 
-            const buttons =
-                document.querySelectorAll(".btn");
+                    message.innerHTML =
+                        "💀 Too many wrong attempts";
 
-            buttons[winningButton].style.background =
-                "gold";
+                }
 
-            buttons[winningButton].style.color =
-                "black";
+            }
 
-            buttons[winningButton].innerText =
-                "🎁 SECRET GIFT";
-
-        }
-
-        function closePopup() {
-
-            popup.classList.remove("show");
-
-            overlay.classList.remove("show");
-
-        }
+        });
     </script>
 
 </body>
