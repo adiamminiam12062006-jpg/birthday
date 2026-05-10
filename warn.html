@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Happy Birthday</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ff0080, #7928ca, #2b32ff);
+            position: relative;
+        }
+        
+        .container {
+            text-align: center;
+            animation: grow 8s linear forwards;
+        }
+        
+        .teddy {
+            width: 180px;
+            animation: growTeddy 8s linear forwards;
+        }
+        
+        h1 {
+            color: white;
+            margin-top: 20px;
+            font-size: 3rem;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            animation: growText 8s linear forwards;
+            animation-delay: 3s;
+        }
+        
+        @keyframes growText {
+            0% {
+                font-size: 1rem;
+            }
+            100% {
+                font-size: 14rem;
+            }
+        }
+        
+        @keyframes growTeddy {
+            0% {
+                width: 180px;
+            }
+            100% {
+                width: 700px;
+            }
+        }
+        
+        @media(max-width:768px) {
+            @keyframes growText {
+                0% {
+                    font-size: 2rem;
+                }
+                100% {
+                    font-size: 5rem;
+                }
+            }
+            @keyframes growTeddy {
+                0% {
+                    width: 120px;
+                }
+                100% {
+                    width: 320px;
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <img src="https://media.tenor.com/dg7Th23TzFUAAAAi/teddy-bear-love.gif" class="teddy">
+
+        <h1>❤️ I LOVE YOU SO MUCH❤️ KESARI ALWAYS BE WITH ME😘
+        </h1>
+
+    </div>
+
+</body>
+
+</html>
