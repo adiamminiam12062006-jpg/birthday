@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Birthday Login</title>
+    <title>Wonderful Places</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +30,7 @@
             position: relative;
             color: white;
         }
+        /* BACKGROUND CIRCLES */
         
         .bg-circle {
             position: absolute;
@@ -64,6 +65,7 @@
                 transform: translateY(30px);
             }
         }
+        /* MAIN CONTAINER */
         
         .container {
             width: 90%;
@@ -80,46 +82,23 @@
         
         .teddy {
             width: 180px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
         
         h1 {
-            font-size: 2.8rem;
-            margin-bottom: 10px;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
         }
         
         .subtitle {
             font-size: 1.1rem;
             opacity: 0.9;
+            margin-bottom: 30px;
         }
+        /* BUTTON */
         
-        .login-box {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            align-items: center;
-            margin-top: 35px;
-        }
-        
-        .login-box input {
-            width: 100%;
-            padding: 16px 20px;
-            border: none;
-            outline: none;
-            border-radius: 50px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            backdrop-filter: blur(10px);
-        }
-        
-        .login-box input::placeholder {
-            color: #eee;
-        }
-        
-        #loginBtn {
-            width: 100%;
-            padding: 16px;
+        #openBtn {
+            padding: 15px 35px;
             border: none;
             border-radius: 50px;
             background: white;
@@ -130,27 +109,99 @@
             transition: 0.3s;
         }
         
-        #loginBtn:hover {
-            transform: scale(1.05);
+        #openBtn:hover {
+            transform: scale(1.08);
             background: #ffe082;
         }
+        /* POPUP */
         
-        .message {
-            margin-top: 25px;
-            font-size: 1.2rem;
-            color: #ffe082;
-            font-weight: 500;
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            color: #7928ca;
+            padding: 35px;
+            border-radius: 25px;
+            text-align: center;
+            transition: 0.4s;
+            z-index: 100;
         }
+        
+        .popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .popup h2 {
+            margin-bottom: 10px;
+        }
+        
+        .popup p {
+            margin-bottom: 20px;
+        }
+        
+        .popup input {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            outline: none;
+            border-radius: 50px;
+            background: #eee;
+            font-size: 1rem;
+        }
+        
+        .popup button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            background: #7928ca;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .popup button:hover {
+            transform: scale(1.05);
+        }
+        /* MESSAGE */
+        
+        #result {
+            margin-top: 20px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        /* OVERLAY */
+        
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            top: 0;
+            left: 0;
+            display: none;
+        }
+        
+        .overlay.show {
+            display: block;
+        }
+        /* MOBILE */
         
         @media(max-width:768px) {
             h1 {
-                font-size: 2rem;
-            }
-            .container {
-                padding: 30px 20px;
+                font-size: 1.8rem;
             }
             .teddy {
                 width: 140px;
+            }
+            .container {
+                padding: 30px 20px;
             }
         }
     </style>
@@ -158,70 +209,93 @@
 
 <body>
 
+    <!-- BACKGROUND -->
+
     <div class="bg-circle circle1"></div>
 
     <div class="bg-circle circle2"></div>
 
+    <!-- MAIN -->
+
     <div class="container">
-      
+
         <img src="https://media.tenor.com/dg7Th23TzFUAAAAi/teddy-bear-love.gif" class="teddy">
 
-        <h1>🎂 Birthday Login 🎁</h1>
+        <h1>
+            🌍 Do You Know Wonderful Places?
+        </h1>
 
         <p class="subtitle">
-            Enter your name to continue
+            Click OK I prove you are wonderful 💖
         </p>
 
-        <div class="login-box">
+        <button id="openBtn">
+        OK ✨
+    </button>
 
-            <input type="text" placeholder="Enter your name" id="nameInput">
+    </div>
 
-            <button id="loginBtn">
-            Open Gift 🎀
-        </button>
+    <!-- OVERLAY -->
 
-        </div>
+    <div class="overlay" id="overlay"></div>
 
-        <div class="message" id="message"></div>
+    <!-- POPUP -->
+
+    <div class="popup" id="popup">
+
+        <h2>
+            Enter Your Name 💖
+        </h2>
+
+        <p>
+            I prove you are wonderful in this world 🌍
+        </p>
+
+        <input type="text" id="nameInput" placeholder="Enter your name">
+
+        <button id="checkBtn">
+        Continue 🎀
+    </button>
+
+        <div id="result"></div>
 
     </div>
 
     <script>
-        const loginBtn =
-            document.getElementById("loginBtn");
+        // ELEMENTS
 
-        const message =
-            document.getElementById("message");
+        const openBtn =
+            document.getElementById("openBtn");
+
+        const popup =
+            document.getElementById("popup");
+
+        const overlay =
+            document.getElementById("overlay");
+
+        const checkBtn =
+            document.getElementById("checkBtn");
+
+        const result =
+            document.getElementById("result");
+
+        // OPEN POPUP
+
+        openBtn.addEventListener("click", () => {
+
+            popup.classList.add("show");
+
+            overlay.classList.add("show");
+
+        });
 
         // CORRECT NAME
-        const correctName = "kesari";
 
-        // TOTAL ATTEMPTS
-        let attempts = 8;
+        const correctName = "keshini";
 
-        // ARRAY ERROR MESSAGES
-        const errorMessages = [
+        // CHECK NAME
 
-            "I think so you put keshini its wrong",
-
-            "just use your brain Motta you can !!",
-
-            "Now you tried Motta correct 😅",
-
-            "Another nic name having think Mental",
-
-            " I think you not try Mental",
-
-            "It may be an Sweet name Think",
-
-            "Sweet pa It may be in Orange colour"
-
-        ];
-
-        // ARRAY INDEX
-        let messageIndex = 0;
-
-        loginBtn.addEventListener("click", () => {
+        checkBtn.addEventListener("click", () => {
 
             const name =
                 document.getElementById("nameInput")
@@ -229,91 +303,45 @@
                 .trim()
                 .toLowerCase();
 
-            // STOP AFTER 7 ATTEMPTS
-            if (attempts <= 0) {
+            // EMPTY
 
-                message.innerHTML =
-                    " Refresh and try Again";
+            if (name === "") {
 
-                message.style.color = "red";
+                result.innerHTML =
+                    "⚠️ Please enter your name";
 
-                return;
+                result.style.color = "red";
 
             }
 
-            // EMPTY INPUT
-            if (name === "") {
+            // WRONG NAME
+            else if (name !== correctName) {
 
-                message.innerHTML =
-                    "⚠️ Please enter your name";
+                result.innerHTML =
+                    "Its simple Think Simple";
 
-                message.style.color = "#ffcccb";
-
-                return;
+                result.style.color =
+                    "#ff4d6d";
 
             }
 
             // CORRECT NAME
-            if (name === correctName) {
+            else {
 
-                message.innerHTML =
-                    "🎉 Login successful";
+                result.innerHTML =
+                    "🎉 Wait We see 💖";
 
-                message.style.color =
-                    "#90ee90";
+                result.style.color =
+                    "#00ff99";
+
+                // NEXT PAGE
 
                 setTimeout(() => {
 
                     window.location.href =
                         "warn.html";
 
-                }, 1000);
-
-            }
-
-            // WRONG NAME
-            else {
-
-                // ARRAY MESSAGE IN ORDER
-                let currentMessage =
-                    errorMessages[messageIndex];
-
-                message.innerHTML =
-                    currentMessage;
-
-                message.style.color =
-                    "#ff4d6d";
-
-                attempts--;
-
-                // NEXT ARRAY MESSAGE
-                messageIndex++;
-
-                // STOP AT LAST ARRAY VALUE
-                if (messageIndex >=
-                    errorMessages.length) {
-
-                    messageIndex =
-                        errorMessages.length - 1;
-
-                }
-
-                // SHOW ATTEMPTS
-                message.innerHTML +=
-                    `<br>Attempts Left : ${attempts}`;
-
-                // BLOCK LOGIN AFTER 7
-                if (attempts === 0) {
-
-                    loginBtn.disabled = true;
-
-                    loginBtn.style.opacity =
-                        "0.5";
-
-                    message.innerHTML =
-                        "💀 Too many wrong attempts";
-
-                }
+                }, 1500);
 
             }
 
