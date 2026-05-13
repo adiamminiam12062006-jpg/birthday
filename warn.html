@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Full Image Card</title>
+    <title>Animated Heart</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -17,58 +22,87 @@
         body {
             width: 100%;
             height: 100vh;
-            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: black;
-            position: relative;
+            overflow: hidden;
+            background: linear-gradient( 135deg, #ff9ec4, #c084fc, #7c3aed);
+            font-family: 'Poppins', sans-serif;
         }
-        /* BLUR BACKGROUND */
+        /* HEART CONTAINER */
         
-        .bg {
+        .container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        /* SVG HEART */
+        
+        svg {
+            width: 350px;
+            height: 350px;
+            overflow: visible;
+        }
+        /* HEART DRAW */
+        
+        path {
+            fill: none;
+            stroke: #ff0055;
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 2000;
+            animation: drawHeart 4s ease forwards, fillHeart 2s ease forwards 4s;
+        }
+        /* DRAW EFFECT */
+        
+        @keyframes drawHeart {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        /* FILL EFFECT */
+        
+        @keyframes fillHeart {
+            from {
+                fill: transparent;
+            }
+            to {
+                fill: #ff0055;
+            }
+        }
+        /* NAME */
+        
+        .name {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: white;
+            opacity: 0;
+            animation: showName 2s ease forwards 5s;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
         }
+        /* NAME ANIMATION */
         
-        .bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: blur(20px) brightness(0.5);
-            transform: scale(1.1);
-        }
-        /* MAIN BIG CARD */
-        
-        .card {
-            position: relative;
-            z-index: 2;
-            width: 95%;
-            height: 90vh;
-            border-radius: 35px;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.15);
-        }
-        /* FULL IMAGE WITHOUT CUT */
-        
-        .card img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: 35px;
+        @keyframes showName {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
         /* MOBILE */
         
         @media(max-width:768px) {
-            .card {
-                width: 96%;
-                height: 75vh;
+            .container {
+                transform: scale(0.7);
             }
         }
     </style>
@@ -76,19 +110,53 @@
 
 <body>
 
-    <!-- SAME IMAGE BLUR BACKGROUND -->
+    <div class="container">
 
-    <div class="bg">
+        <!-- HEART -->
 
-        <img src="WhatsApp Image 2026-05-11 at 8.40.38 PM.jpeg">
+        <svg viewBox="0 0 512 512">
 
-    </div>
+        <path d="
 
-    <!-- BIG IMAGE CARD -->
+        M256 464
 
-    <div class="card">
+        C256 464,
+        32 320,
+        32 160
 
-        <img src="WhatsApp Image 2026-05-11 at 8.40.38 PM.jpeg">
+        C32 64,
+        128 32,
+        192 96
+
+        C224 128,
+        256 160,
+        256 160
+
+        C256 160,
+        288 128,
+        320 96
+
+        C384 32,
+        480 64,
+        480 160
+
+        C480 320,
+        256 464,
+        256 464
+
+        ">
+
+        </path>
+
+    </svg>
+
+        <!-- NAME -->
+
+        <div class="name">
+
+            Keshini
+
+        </div>
 
     </div>
 
