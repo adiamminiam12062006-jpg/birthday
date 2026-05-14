@@ -26,7 +26,7 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            background: linear-gradient( 135deg, #ff9ec4, #c084fc, #7c3aed);
+            background: linear-gradient( 135deg, #ffc39e, #c084fc, #cfed3a);
             font-family: 'Poppins', sans-serif;
         }
         /* FLOATING HEARTS */
@@ -185,14 +185,14 @@
         <!-- TITLE -->
 
         <h1>
-            Do You Know You was In My Heart 💖
+            Do You Know You was Very Sweet 💖
         </h1>
 
         <!-- QUESTION -->
 
         <div class="question">
 
-            You want ProfF then Enter The Cute Name
+            You want Proff then Enter The Pet Name
 
         </div>
 
@@ -222,7 +222,7 @@
             document.getElementById("result");
 
         // CORRECT NICKNAME
-        const correctNickname = "papa";
+        const correctNickname = "motta";
 
         checkBtn.addEventListener("click", () => {
 
@@ -237,7 +237,7 @@
             if (nickname === "") {
 
                 result.innerHTML =
-                    "⚠️ Please enter your nickname";
+                    "⚠️ Please enter your Pet name";
 
                 result.style.color =
                     "#ffcccb";
@@ -247,7 +247,7 @@
             else if (nickname !== correctNickname) {
 
                 result.innerHTML =
-                    "Its so simple even baby can Find";
+                    "Sweet papa knows the answer";
 
                 result.style.color =
                     "#ff4d6d";
@@ -258,7 +258,7 @@
             else {
 
                 result.innerHTML =
-                    "💖 Cute we See now ✨";
+                    "💖 Sweet we See now ✨";
 
                 result.style.color =
                     "#90ee90";
