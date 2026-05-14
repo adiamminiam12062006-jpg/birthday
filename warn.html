@@ -5,104 +5,214 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Animated Heart</title>
+    <title>Chocolate Gift</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
         
         body {
             width: 100%;
             height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             overflow: hidden;
-            background: linear-gradient( 135deg, #ff9ec4, #c084fc, #7c3aed);
-            font-family: 'Poppins', sans-serif;
-        }
-        /* HEART CONTAINER */
-        
-        .container {
-            position: relative;
-            width: 400px;
-            height: 400px;
             display: flex;
             justify-content: center;
             align-items: center;
+            background: linear-gradient( 135deg, #5c2c06, #8b4513, #d2691e);
+            position: relative;
         }
-        /* SVG HEART */
+        /* FLOATING CHOCOLATES */
         
-        svg {
-            width: 350px;
-            height: 350px;
-            overflow: visible;
-        }
-        /* HEART DRAW */
-        
-        path {
-            fill: none;
-            stroke: #ff0055;
-            stroke-width: 12;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            stroke-dasharray: 2000;
-            stroke-dashoffset: 2000;
-            animation: drawHeart 4s ease forwards, fillHeart 2s ease forwards 4s;
-        }
-        /* DRAW EFFECT */
-        
-        @keyframes drawHeart {
-            to {
-                stroke-dashoffset: 0;
-            }
-        }
-        /* FILL EFFECT */
-        
-        @keyframes fillHeart {
-            from {
-                fill: transparent;
-            }
-            to {
-                fill: #ff0055;
-            }
-        }
-        /* NAME */
-        
-        .name {
+        body::before,
+        body::after {
+            content: "🍫";
             position: absolute;
-            font-family: 'Dancing Script', cursive;
-            font-size: 3.5rem;
-            color: white;
-            opacity: 0;
-            animation: showName 2s ease forwards 5s;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            font-size: 3rem;
+            animation: float 7s infinite linear;
         }
-        /* NAME ANIMATION */
         
-        @keyframes showName {
+        body::after {
+            left: 80%;
+            animation-delay: 3s;
+        }
+        
+        @keyframes float {
             from {
-                opacity: 0;
-                transform: scale(0.5);
+                transform: translateY(100vh);
             }
             to {
-                opacity: 1;
-                transform: scale(1);
+                transform: translateY(-120vh);
             }
+        }
+        /* CARD */
+        
+        .card {
+            width: 90%;
+            max-width: 550px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(14px);
+            border-radius: 35px;
+            padding: 45px 30px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            animation: pop 1s ease;
+        }
+        
+        @keyframes pop {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        /* CHOCOLATE GIF */
+        
+        .chocolate {
+            width: 220px;
+            margin-bottom: 25px;
+            animation: floatChoco 3s infinite ease-in-out;
+        }
+        
+        @keyframes floatChoco {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+        /* TITLE */
+        
+        h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        /* MESSAGE */
+        
+        .message {
+            color: #fff;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+        /* BUTTON */
+        
+        .buyBtn {
+            padding: 16px 40px;
+            border: none;
+            border-radius: 50px;
+            background: white;
+            color: #8b4513;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .buyBtn:hover {
+            transform: scale(1.08);
+            background: #ffe082;
+        }
+        /* POPUP */
+        
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            padding: 35px;
+            border-radius: 30px;
+            text-align: center;
+            z-index: 100;
+            transition: 0.4s;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        .popup.show {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        /* POPUP TITLE */
+        
+        .popup h2 {
+            color: #8b4513;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+        /* POPUP MESSAGE */
+        
+        .popup p {
+            color: #444;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        /* POPUP BUTTON */
+        
+        .popup button {
+            padding: 14px 35px;
+            border: none;
+            border-radius: 50px;
+            background: #8b4513;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .popup button:hover {
+            transform: scale(1.08);
+        }
+        /* OVERLAY */
+        
+        .overlay {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.4s;
+            z-index: 50;
+        }
+        
+        .overlay.show {
+            opacity: 1;
+            pointer-events: auto;
         }
         /* MOBILE */
         
         @media(max-width:768px) {
-            .container {
-                transform: scale(0.7);
+            h1 {
+                font-size: 2.3rem;
+            }
+            .message {
+                font-size: 1rem;
+            }
+            .chocolate {
+                width: 170px;
             }
         }
     </style>
@@ -110,55 +220,93 @@
 
 <body>
 
-    <div class="container">
+    <!-- CARD -->
 
-        <!-- HEART -->
+    <div class="card">
 
-        <svg viewBox="0 0 512 512">
+        <!-- GIF -->
 
-        <path d="
+        <img src="https://media.tenor.com/6lZQ8lL8QKAAAAAi/chocolate.gif" class="chocolate">
 
-        M256 464
+        <!-- TITLE -->
 
-        C256 464,
-        32 320,
-        32 160
+        <h1>
+            Your Gift 🎁
+        </h1>
 
-        C32 64,
-        128 32,
-        192 96
+        <!-- MESSAGE -->
 
-        C224 128,
-        256 160,
-        256 160
+        <div class="message">
 
-        C256 160,
-        288 128,
-        320 96
+            🍫 YOU ARE MY SWEET GIRL 💖
 
-        C384 32,
-        480 64,
-        480 160
-
-        C480 320,
-        256 464,
-        256 464
-
-        ">
-
-        </path>
-
-    </svg>
-
-        <!-- NAME -->
-
-        <div class="name">
-
-            Keshini
+            <br><br> TODAYS SPECIAL IS CLICK AND CHECK✨
 
         </div>
 
+        <!-- BUTTON -->
+
+        <button class="buyBtn" onclick="buyGift()">
+
+        CHECK
+
+    </button>
+
     </div>
+
+    <!-- OVERLAY -->
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- POPUP -->
+
+    <div class="popup" id="popup">
+
+        <h2>
+            🍫 Surprise 😈
+        </h2>
+
+        <p>
+
+            Now go and buy a chocolate And Ice Cream Using Phone Pay 💖✨
+
+        </p>
+
+        <button onclick="closePopup()">
+
+        OK 🎀
+
+    </button>
+
+    </div>
+
+    <script>
+        const popup =
+            document.getElementById("popup");
+
+        const overlay =
+            document.getElementById("overlay");
+
+        /* OPEN POPUP */
+
+        function buyGift() {
+
+            popup.classList.add("show");
+
+            overlay.classList.add("show");
+
+        }
+
+        /* CLOSE POPUP */
+
+        function closePopup() {
+
+            popup.classList.remove("show");
+
+            overlay.classList.remove("show");
+
+        }
+    </script>
 
 </body>
 
