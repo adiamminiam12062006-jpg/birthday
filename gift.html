@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nickname Question</title>
+    <title>Friend Forever</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -22,51 +22,59 @@
         body {
             width: 100%;
             height: 100vh;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            background: linear-gradient( 135deg, #ffc39e, #c084fc, #cfed3a);
+            background: linear-gradient( 135deg, #ff9ec4, #c084fc, #7c3aed);
             font-family: 'Poppins', sans-serif;
+            position: relative;
         }
-        /* FLOATING HEARTS */
+        /* FLOAT HEARTS */
         
-        body::before,
-        body::after {
-            content: "💖";
+        .hearts {
             position: absolute;
-            font-size: 3rem;
-            animation: float 6s infinite linear;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
         
-        body::after {
-            left: 80%;
-            animation-delay: 3s;
+        .hearts span {
+            position: absolute;
+            bottom: -100px;
+            color: rgba(255, 255, 255, 0.7);
+            animation: fly linear infinite;
         }
         
-        @keyframes float {
-            from {
-                transform: translateY(100vh);
+        @keyframes fly {
+            0% {
+                transform: translateY(0) scale(0.7);
+                opacity: 0;
             }
-            to {
-                transform: translateY(-120vh);
+            20% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) scale(1.5);
+                opacity: 0;
             }
         }
-        /* MAIN CARD */
+        /* CARD */
         
         .card {
+            position: relative;
+            z-index: 10;
             width: 90%;
             max-width: 500px;
+            padding: 45px 30px;
+            text-align: center;
+            border-radius: 35px;
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(14px);
-            border-radius: 35px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
             animation: pop 1s ease;
         }
-        /* POP EFFECT */
         
         @keyframes pop {
             from {
@@ -78,20 +86,20 @@
                 opacity: 1;
             }
         }
-        /* DOLL */
+        /* GIF */
         
-        .doll {
+        .gif {
             width: 180px;
-            margin-bottom: 20px;
-            animation: floatDoll 3s infinite ease-in-out;
+            margin-bottom: 25px;
+            animation: floatGif 3s infinite ease-in-out;
         }
         
-        @keyframes floatDoll {
+        @keyframes floatGif {
             0% {
                 transform: translateY(0px);
             }
             50% {
-                transform: translateY(-10px);
+                transform: translateY(-12px);
             }
             100% {
                 transform: translateY(0px);
@@ -101,45 +109,27 @@
         
         h1 {
             color: white;
-            font-size: 2.8rem;
-            margin-bottom: 15px;
+            font-size: 3rem;
+            margin-bottom: 20px;
             font-family: 'Dancing Script', cursive;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
         /* QUESTION */
         
         .question {
-            color: #fff;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            line-height: 1.8;
-        }
-        /* INPUT */
-        
-        input {
-            width: 100%;
-            padding: 16px 20px;
-            border: none;
-            outline: none;
-            border-radius: 50px;
-            background: rgba(255, 255, 255, 0.2);
             color: white;
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-        
-        input::placeholder {
-            color: #eee;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            margin-bottom: 30px;
         }
         /* BUTTON */
         
         button {
-            width: 100%;
-            padding: 16px;
+            padding: 16px 40px;
             border: none;
             border-radius: 50px;
             background: white;
-            color: #7928ca;
+            color: #7c3aed;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
@@ -147,27 +137,19 @@
         }
         
         button:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
             background: #ffe082;
-        }
-        /* RESULT */
-        
-        .result {
-            margin-top: 20px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: white;
         }
         /* MOBILE */
         
         @media(max-width:768px) {
-            .card {
-                padding: 30px 20px;
-            }
             h1 {
-                font-size: 2.2rem;
+                font-size: 2.3rem;
             }
-            .doll {
+            .question {
+                font-size: 1rem;
+            }
+            .gif {
                 width: 140px;
             }
         }
@@ -176,105 +158,63 @@
 
 <body>
 
+    <!-- HEARTS -->
+
+    <div class="hearts">
+
+        <span style="left:5%; font-size:22px; animation-duration:9s;">💖</span>
+
+        <span style="left:18%; font-size:28px; animation-duration:11s;">💕</span>
+
+        <span style="left:35%; font-size:20px; animation-duration:8s;">💗</span>
+
+        <span style="left:52%; font-size:30px; animation-duration:12s;">💘</span>
+
+        <span style="left:70%; font-size:24px; animation-duration:10s;">💞</span>
+
+        <span style="left:88%; font-size:26px; animation-duration:9s;">💓</span>
+
+    </div>
+
+    <!-- CARD -->
+
     <div class="card">
 
-        <!-- DOLL -->
+        <!-- GIF -->
 
-        <img src="https://media.tenor.com/dg7Th23TzFUAAAAi/teddy-bear-love.gif" class="doll">
+        <img src="https://media.tenor.com/dg7Th23TzFUAAAAi/teddy-bear-love.gif" class="gif">
 
         <!-- TITLE -->
 
         <h1>
-            Do You Know You was Very Sweet 💖
+            One Question 💖
         </h1>
 
         <!-- QUESTION -->
 
         <div class="question">
 
-            You want Proff then Enter The Pet Name
+            Could you always be my friend? ✨
 
         </div>
 
-        <!-- INPUT -->
-
-        <input type="text" id="nickname" placeholder="Enter your nickname">
-
         <!-- BUTTON -->
 
-        <button id="checkBtn">
+        <button onclick="goNext()">
 
-        Submit 🎀
+        Yes Forever 💕
 
     </button>
-
-        <!-- RESULT -->
-
-        <div class="result" id="result"></div>
 
     </div>
 
     <script>
-        const checkBtn =
-            document.getElementById("checkBtn");
+        function goNext() {
 
-        const result =
-            document.getElementById("result");
+            window.location.href =
+                "warn.html";
 
-        // CORRECT NICKNAME
-        const correctNickname = "motta";
-
-        checkBtn.addEventListener("click", () => {
-
-            const nickname =
-                document.getElementById("nickname")
-                .value
-                .trim()
-                .toLowerCase();
-
-            // EMPTY INPUT
-
-            if (nickname === "") {
-
-                result.innerHTML =
-                    "⚠️ Please enter your Pet name";
-
-                result.style.color =
-                    "#ffcccb";
-            }
-
-            // WRONG NICKNAME
-            else if (nickname !== correctNickname) {
-
-                result.innerHTML =
-                    "Sweet papa knows the answer";
-
-                result.style.color =
-                    "#ff4d6d";
-
-            }
-
-            // CORRECT NICKNAME
-            else {
-
-                result.innerHTML =
-                    "💖 Sweet we See now ✨";
-
-                result.style.color =
-                    "#90ee90";
-
-                // GO TO NEXT PAGE
-
-                setTimeout(() => {
-
-                    window.location.href =
-                        "warn.html";
-
-                }, 1500);
-
-            }
-
-        });
+        }
     </script>
 
 </body>
