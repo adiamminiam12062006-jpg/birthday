@@ -5,19 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Chocolate Gift</title>
+    <title>My World</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
         }
         
         body {
@@ -27,66 +26,63 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient( 135deg, #5c2c06, #8b4513, #d2691e);
+            background: linear-gradient( 135deg, #ff9ec4, #c084fc, #7c3aed);
+            font-family: 'Poppins', sans-serif;
             position: relative;
         }
-        /* FLOATING CHOCOLATES */
+        /* FLOAT HEARTS */
         
-        body::before,
-        body::after {
-            content: "🍫";
+        .hearts {
             position: absolute;
-            font-size: 3rem;
-            animation: float 7s infinite linear;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
         }
         
-        body::after {
-            left: 80%;
-            animation-delay: 3s;
+        .hearts span {
+            position: absolute;
+            bottom: -100px;
+            color: rgba(255, 255, 255, 0.7);
+            animation: fly linear infinite;
         }
         
-        @keyframes float {
-            from {
-                transform: translateY(100vh);
+        @keyframes fly {
+            0% {
+                transform: translateY(0) scale(0.7);
+                opacity: 0;
             }
-            to {
-                transform: translateY(-120vh);
+            20% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-120vh) scale(1.5);
+                opacity: 0;
             }
         }
         /* CARD */
         
         .card {
+            position: relative;
+            z-index: 10;
             width: 90%;
             max-width: 550px;
+            padding: 45px 30px;
+            text-align: center;
+            border-radius: 35px;
             background: rgba(255, 255, 255, 0.12);
             border: 1px solid rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(14px);
-            border-radius: 35px;
-            padding: 45px 30px;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            animation: pop 1s ease;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
         }
+        /* GIF */
         
-        @keyframes pop {
-            from {
-                transform: scale(0.7);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-        /* CHOCOLATE GIF */
-        
-        .chocolate {
-            width: 220px;
+        .gif {
+            width: 180px;
             margin-bottom: 25px;
-            animation: floatChoco 3s infinite ease-in-out;
+            animation: floatGif 3s infinite ease-in-out;
         }
         
-        @keyframes floatChoco {
+        @keyframes floatGif {
             0% {
                 transform: translateY(0px);
             }
@@ -109,110 +105,49 @@
         /* MESSAGE */
         
         .message {
-            color: #fff;
+            color: white;
             font-size: 1.2rem;
             line-height: 1.9;
             margin-bottom: 30px;
         }
+        /* TIMER */
+        
+        .timer {
+            color: #fff;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        }
         /* BUTTON */
         
-        .buyBtn {
+        button {
             padding: 16px 40px;
             border: none;
             border-radius: 50px;
             background: white;
-            color: #8b4513;
+            color: #7c3aed;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: 0.3s;
         }
         
-        .buyBtn:hover {
+        button:hover {
             transform: scale(1.08);
             background: #ffe082;
-        }
-        /* POPUP */
-        
-        .popup {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 90%;
-            max-width: 400px;
-            background: white;
-            padding: 35px;
-            border-radius: 30px;
-            text-align: center;
-            z-index: 100;
-            transition: 0.4s;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-        }
-        
-        .popup.show {
-            transform: translate(-50%, -50%) scale(1);
-        }
-        /* POPUP TITLE */
-        
-        .popup h2 {
-            color: #8b4513;
-            margin-bottom: 15px;
-            font-size: 2rem;
-        }
-        /* POPUP MESSAGE */
-        
-        .popup p {
-            color: #444;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 25px;
-        }
-        /* POPUP BUTTON */
-        
-        .popup button {
-            padding: 14px 35px;
-            border: none;
-            border-radius: 50px;
-            background: #8b4513;
-            color: white;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        
-        .popup button:hover {
-            transform: scale(1.08);
-        }
-        /* OVERLAY */
-        
-        .overlay {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            background: rgba(0, 0, 0, 0.5);
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.4s;
-            z-index: 50;
-        }
-        
-        .overlay.show {
-            opacity: 1;
-            pointer-events: auto;
         }
         /* MOBILE */
         
         @media(max-width:768px) {
             h1 {
-                font-size: 2.3rem;
+                font-size: 2.2rem;
             }
-            .message {
-                font-size: 1rem;
+            .timer {
+                font-size: 1.4rem;
             }
-            .chocolate {
-                width: 170px;
+            .gif {
+                width: 140px;
             }
         }
     </style>
@@ -220,90 +155,138 @@
 
 <body>
 
+    <!-- HEARTS -->
+
+    <div class="hearts">
+
+        <span style="left:5%; font-size:22px; animation-duration:9s;">💖</span>
+
+        <span style="left:18%; font-size:28px; animation-duration:11s;">💕</span>
+
+        <span style="left:35%; font-size:20px; animation-duration:8s;">💗</span>
+
+        <span style="left:52%; font-size:30px; animation-duration:12s;">💘</span>
+
+        <span style="left:70%; font-size:24px; animation-duration:10s;">💞</span>
+
+        <span style="left:88%; font-size:26px; animation-duration:9s;">💓</span>
+
+    </div>
+
     <!-- CARD -->
 
     <div class="card">
 
         <!-- GIF -->
 
-        <img src="https://media.tenor.com/6lZQ8lL8QKAAAAAi/chocolate.gif" class="chocolate">
+        <img src="https://media.tenor.com/dg7Th23TzFUAAAAi/teddy-bear-love.gif" class="gif">
 
         <!-- TITLE -->
 
         <h1>
-            Your Gift 🎁
+            My World 💖
         </h1>
 
         <!-- MESSAGE -->
 
         <div class="message">
 
-            🍫 YOU ARE MY SWEET GIRL 💖
+            I have a question for you ✨
 
-            <br><br> TODAYS SPECIAL IS CLICK AND CHECK✨
+            <br><br> Wait until 6 PM ⏳
+
+        </div>
+
+        <!-- TIMER -->
+
+        <div class="timer" id="timer">
+
+            Loading...
 
         </div>
 
         <!-- BUTTON -->
 
-        <button class="buyBtn" onclick="buyGift()">
+        <button onclick="showMessage()">
 
-        CHECK
-
-    </button>
-
-    </div>
-
-    <!-- OVERLAY -->
-
-    <div class="overlay" id="overlay"></div>
-
-    <!-- POPUP -->
-
-    <div class="popup" id="popup">
-
-        <h2>
-            🍫 Surprise 
-        </h2>
-
-        <p>
-
-            Now go and buy a chocolate And Ice Cream Using Phone Pay 💖✨
-
-        </p>
-
-        <button onclick="closePopup()">
-
-        OK 🎀
+        OK 💖
 
     </button>
 
     </div>
 
     <script>
-        const popup =
-            document.getElementById("popup");
+        const timer =
+            document.getElementById("timer");
 
-        const overlay =
-            document.getElementById("overlay");
+        /* TOMORROW 6 PM */
 
-        /* OPEN POPUP */
+        const target =
+            new Date();
 
-        function buyGift() {
+        target.setDate(
+            target.getDate() + 1
+        );
 
-            popup.classList.add("show");
+        target.setHours(18);
+        target.setMinutes(0);
+        target.setSeconds(0);
 
-            overlay.classList.add("show");
+        function updateTimer() {
+
+            const now =
+                new Date().getTime();
+
+            const distance =
+                target - now;
+
+            if (distance <= 0) {
+
+                timer.innerHTML =
+                    "🎉 Time Started 💖";
+
+                return;
+            }
+
+            const hours =
+                Math.floor(
+                    (distance %
+                        (1000 * 60 * 60 * 24)) /
+                    (1000 * 60 * 60)
+                );
+
+            const minutes =
+                Math.floor(
+                    (distance %
+                        (1000 * 60 * 60)) /
+                    (1000 * 60)
+                );
+
+            const seconds =
+                Math.floor(
+                    (distance %
+                        (1000 * 60)) /
+                    1000
+                );
+
+            timer.innerHTML =
+                hours + "h : " +
+                minutes + "m : " +
+                seconds + "s";
 
         }
 
-        /* CLOSE POPUP */
+        updateTimer();
 
-        function closePopup() {
+        setInterval(updateTimer, 1000);
 
-            popup.classList.remove("show");
+        /* BUTTON MESSAGE */
 
-            overlay.classList.remove("show");
+        function showMessage() {
+
+            alert(
+                "✨ You will receive that  at 6 PM 💖"
+            );
 
         }
     </script>
