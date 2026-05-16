@@ -4,150 +4,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>My World</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-
+    <title>Happiest Birthday!</title>
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
         
         body {
-            width: 100%;
-            height: 100vh;
+            background: radial-gradient(circle at center, #0c1033 0%, #05071a 100%);
             overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient( 135deg, #ff9ec4, #c084fc, #7c3aed);
-            font-family: 'Poppins', sans-serif;
-            position: relative;
+            color: #fff;
         }
-        /* FLOAT HEARTS */
+        /* Ambient Space Elements */
         
-        .hearts {
+        .moon {
             position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle at 30% 30%, #ffffff 0%, #e1e5f2 70%, #b5bdxd 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.4);
+        }
+        
+        .balloon-deco {
+            position: absolute;
+            right: -20px;
+            top: -20px;
+            width: 300px;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+        
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            z-index: 1;
         }
+        /* UI Overlay Layer */
         
-        .hearts span {
-            position: absolute;
-            bottom: -100px;
-            color: rgba(255, 255, 255, 0.7);
-            animation: fly linear infinite;
-        }
-        
-        @keyframes fly {
-            0% {
-                transform: translateY(0) scale(0.7);
-                opacity: 0;
-            }
-            20% {
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-120vh) scale(1.5);
-                opacity: 0;
-            }
-        }
-        /* CARD */
-        
-        .card {
+        .ui-container {
             position: relative;
-            z-index: 10;
-            width: 90%;
-            max-width: 550px;
-            padding: 45px 30px;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            pointer-events: none;
+        }
+        
+        .left-panel {
+            width: 45%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 8%;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+        
+        .left-panel.show {
+            opacity: 1;
+        }
+        /* Text styling */
+        
+        .msg-title {
+            font-size: 1.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #e2e8f0;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        
+        .msg-subtitle {
+            font-size: 1.4rem;
+            color: #ff4d79;
+            margin-bottom: 40px;
+            font-weight: 600;
+        }
+        
+        .counter-banner {
+            font-size: 1rem;
+            letter-spacing: 3px;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+        }
+        
+        .counter-digits {
+            font-size: 2.2rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .counter-digits span {
+            color: #ff4d79;
+            font-size: 2.8rem;
+            text-shadow: 0 0 15px rgba(255, 77, 121, 0.6);
+        }
+        /* Start Trigger Button */
+        
+        .start-btn-wrapper {
+            position: absolute;
+            left: 50%;
+            top: 55%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
             text-align: center;
-            border-radius: 35px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(14px);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-        }
-        /* GIF */
-        
-        .gif {
-            width: 180px;
-            margin-bottom: 25px;
-            animation: floatGif 3s infinite ease-in-out;
+            cursor: pointer;
+            pointer-events: auto;
+            transition: opacity 0.5s ease;
         }
         
-        @keyframes floatGif {
+        .start-heart {
+            font-size: 4rem;
+            color: #ff4d79;
+            animation: pulse 1.2s infinite;
+            display: inline-block;
+        }
+        
+        .start-text {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            color: #ffccd5;
+        }
+        
+        @keyframes pulse {
             0% {
-                transform: translateY(0px);
+                transform: scale(1);
             }
             50% {
-                transform: translateY(-12px);
+                transform: scale(1.15);
+                text-shadow: 0 0 25px rgba(255, 77, 121, 0.8);
             }
             100% {
-                transform: translateY(0px);
-            }
-        }
-        /* TITLE */
-        
-        h1 {
-            color: white;
-            font-size: 3rem;
-            margin-bottom: 20px;
-            font-family: 'Dancing Script', cursive;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-        /* MESSAGE */
-        
-        .message {
-            color: white;
-            font-size: 1.2rem;
-            line-height: 1.9;
-            margin-bottom: 30px;
-        }
-        /* TIMER */
-        
-        .timer {
-            color: #fff;
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 30px;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-        }
-        /* BUTTON */
-        
-        button {
-            padding: 16px 40px;
-            border: none;
-            border-radius: 50px;
-            background: white;
-            color: #7c3aed;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        
-        button:hover {
-            transform: scale(1.08);
-            background: #ffe082;
-        }
-        /* MOBILE */
-        
-        @media(max-width:768px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-            .timer {
-                font-size: 1.4rem;
-            }
-            .gif {
-                width: 140px;
+                transform: scale(1);
             }
         }
     </style>
@@ -155,142 +160,226 @@
 
 <body>
 
-    <!-- HEARTS -->
+    <div class="moon"></div>
 
-    <div class="hearts">
+    <svg class="balloon-deco" viewBox="0 0 200 200">
+        <circle cx="160" cy="60" r="50" fill="#ff758f" opacity="0.6"/>
+        <circle cx="210" cy="90" r="45" fill="#ffb3c1" opacity="0.4"/>
+    </svg>
 
-        <span style="left:5%; font-size:22px; animation-duration:9s;">💖</span>
+    <canvas id="canvas"></canvas>
 
-        <span style="left:18%; font-size:28px; animation-duration:11s;">💕</span>
+    <div class="ui-container">
+        <div class="left-panel" id="leftPanel">
+            <div class="msg-title">Happiest Birthday Papa</div>
+            <div class="msg-subtitle">My Beautiful Queen 💖<br>I'LL GIVE YOU ALL THE LOVE...</div>
 
-        <span style="left:35%; font-size:20px; animation-duration:8s;">💗</span>
-
-        <span style="left:52%; font-size:30px; animation-duration:12s;">💘</span>
-
-        <span style="left:70%; font-size:24px; animation-duration:10s;">💞</span>
-
-        <span style="left:88%; font-size:26px; animation-duration:9s;">💓</span>
-
+            <div class="counter-banner">THE WORLD JUST GOT LUCKIER SINCE</div>
+            <div class="counter-digits">
+                <span>6909</span> Days <span>15</span> Hours
+            </div>
+        </div>
     </div>
 
-    <!-- CARD -->
-
-    <div class="card">
-
-        <!-- GIF -->
-
-        <img src="https://media.tenor.com/dg7Th23TzFUAAAAi/teddy-bear-love.gif" class="gif">
-
-        <!-- TITLE -->
-
-        <h1>
-            My World 💖
-        </h1>
-
-        <!-- MESSAGE -->
-
-        <div class="message">
-
-            I have a question for you ✨
-
-            <br><br> Wait until 6 PM ⏳
-
-        </div>
-
-        <!-- TIMER -->
-
-        <div class="timer" id="timer">
-
-            Loading...
-
-        </div>
-
-        <!-- BUTTON -->
-
-        <button onclick="showMessage()">
-
-        OK 💖
-
-    </button>
-
+    <div class="start-btn-wrapper" id="startBtn" onclick="initTreeAnimation()">
+        <div class="start-heart">❤️</div>
+        <div class="start-text">Click Me 😊<br>Birthday Queen !</div>
     </div>
 
     <script>
-        const timer =
-            document.getElementById("timer");
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
 
-        /* TOMORROW 6 PM */
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
 
-        const target =
-            new Date();
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
 
-        target.setDate(
-            target.getDate() + 1
-        );
+        // Ambient background twinkling stars
+        const stars = Array.from({
+            length: 60
+        }, () => ({
+            x: Math.random() * width,
+            y: Math.random() * height * 0.7,
+            size: Math.random() * 2 + 0.5,
+            alpha: Math.random()
+        }));
 
-        target.setHours(18);
-        target.setMinutes(0);
-        target.setSeconds(0);
+        function drawStars() {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            stars.forEach(star => {
+                ctx.globalAlpha = Math.sin(Date.now() * 0.002 + star.x) * 0.4 + 0.6;
+                ctx.fillRect(star.x, star.y, star.size, star.size);
+            });
+            ctx.globalAlpha = 1.0;
+        }
 
-        function updateTimer() {
+        // Branch and Leaf configuration
+        let branchQueue = [];
+        let leaves = [];
+        let animationStarted = false;
+        const heartColors = ['#ff4d79', '#ff758f', '#ff8fa3', '#ffb3c1', '#ffccd5', '#ffccd5', '#fff0f3', '#c9184a'];
 
-            const now =
-                new Date().getTime();
+        class Branch {
+            constructor(startX, startY, len, angle, thick, generation) {
+                this.startX = startX;
+                this.startY = startY;
+                this.len = len;
+                this.angle = angle;
+                this.thick = thick;
+                this.generation = generation;
 
-            const distance =
-                target - now;
-
-            if (distance <= 0) {
-
-                timer.innerHTML =
-                    "🎉 Time Started 💖";
-
-                return;
+                this.currentLen = 0;
+                this.endX = startX + Math.cos(angle) * len;
+                this.endY = startY + Math.sin(angle) * len;
+                this.speed = 2.5 / (generation + 1); // Natural growth slowing down outwards
+                this.finished = false;
             }
 
-            const hours =
-                Math.floor(
-                    (distance %
-                        (1000 * 60 * 60 * 24)) /
-                    (1000 * 60 * 60)
-                );
+            grow() {
+                if (this.currentLen < this.len) {
+                    this.currentLen += this.speed;
+                    if (this.currentLen > this.len) this.currentLen = this.len;
+                } else if (!this.finished) {
+                    this.finished = true;
+                    this.split();
+                }
+            }
 
-            const minutes =
-                Math.floor(
-                    (distance %
-                        (1000 * 60 * 60)) /
-                    (1000 * 60)
-                );
+            draw() {
+                ctx.beginPath();
+                ctx.moveTo(this.startX, this.startY);
+                const currentX = this.startX + Math.cos(this.angle) * this.currentLen;
+                const currentY = this.startY + Math.sin(this.angle) * this.currentLen;
+                ctx.lineTo(currentX, currentY);
+                ctx.strokeStyle = '#fbc4d8'; // Delicate pinkish-wood tone
+                ctx.lineWidth = this.thick * (1 - this.currentLen / this.len * 0.2);
+                ctx.lineCap = 'round';
+                ctx.stroke();
+            }
 
-            const seconds =
-                Math.floor(
-                    (distance %
-                        (1000 * 60)) /
-                    1000
-                );
+            split() {
+                if (this.generation >= 5) {
+                    // Create clustered leaf nodes at terminal branches
+                    for (let i = 0; i < 8; i++) {
+                        leaves.push(new HeartLeaf(this.endX, this.endY));
+                    }
+                    return;
+                }
 
-            timer.innerHTML =
-                hours + "h : " +
-                minutes + "m : " +
-                seconds + "s";
-
+                // Generates dynamic recursive splits mimicking natural flora
+                const numBranches = Math.random() > 0.3 ? 3 : 2;
+                for (let i = 0; i < numBranches; i++) {
+                    const angleOffset = (Math.random() * 55 - 27.5) * Math.PI / 180;
+                    const lenScale = 0.72 + Math.random() * 0.12;
+                    branchQueue.push(new Branch(
+                        this.endX,
+                        this.endY,
+                        this.len * lenScale,
+                        this.angle + angleOffset,
+                        this.thick * 0.65,
+                        this.generation + 1
+                    ));
+                }
+            }
         }
 
-        updateTimer();
+        class HeartLeaf {
+            constructor(bx, by) {
+                // Shape positioning offset to map outwards into a structural heart silhouette
+                const angle = Math.random() * Math.PI * 2;
+                const dist = Math.random() * 110;
 
-        setInterval(updateTimer, 1000);
+                // Mathematical formulation targeting a global heart footprint geometry 
+                this.targetX = bx + Math.cos(angle) * dist * (1.1 + Math.sin(angle));
+                this.targetY = by + Math.sin(angle) * dist - (Math.abs(Math.cos(angle)) * 40);
 
-        /* BUTTON MESSAGE */
+                this.x = bx;
+                this.y = by;
+                this.size = Math.random() * 5 + 4;
+                this.color = heartColors[Math.floor(Math.random() * heartColors.length)];
+                this.progress = 0;
+                this.speed = 0.015 + Math.random() * 0.015;
+            }
 
-        function showMessage() {
+            update() {
+                if (this.progress < 1) {
+                    this.progress += this.speed;
+                    // Ease-out calculation for smooth expansion mechanics
+                    const ease = 1 - Math.pow(1 - this.progress, 3);
+                    this.x = this.x + (this.targetX - this.x) * ease * this.progress;
+                    this.y = this.y + (this.targetY - this.y) * ease * this.progress;
+                }
+            }
 
-            alert(
-                "✨ You will receive that  at 6 PM 💖"
-            );
-
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                // Vector canvas path rendering a precise crisp structural heart shape
+                ctx.moveTo(0, 0);
+                ctx.bezierCurveTo(-this.size, -this.size, -this.size * 1.8, this.size / 3, 0, this.size * 1.8);
+                ctx.bezierCurveTo(this.size * 1.8, this.size / 3, this.size, -this.size, 0, 0);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
         }
+
+        function initTreeAnimation() {
+            if (animationStarted) return;
+            animationStarted = true;
+
+            // Hide the starter heart interface immediately 
+            const btn = document.getElementById('startBtn');
+            btn.style.opacity = '0';
+            setTimeout(() => btn.remove(), 500);
+
+            // Plant initial anchor trunk base at right center side
+            const baseRootX = width * 0.68;
+            const baseRootY = height * 0.85;
+            const initialLength = height * 0.18;
+
+            branchQueue.push(new Branch(baseRootX, baseRootY, initialLength, -Math.PI / 2, 9, 0));
+
+            animate();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            drawStars();
+
+            // Handle branching array passes
+            let allFinished = true;
+            branchQueue.forEach(branch => {
+                branch.grow();
+                branch.draw();
+                if (!branch.finished) allFinished = false;
+            });
+
+            // Handle cluster blooming iterations 
+            leaves.forEach(leaf => {
+                leaf.update();
+                leaf.draw();
+            });
+
+            // Reveal Left UI panels once final canopy density levels anchor fully
+            if (branchQueue.length > 20 && allFinished) {
+                document.getElementById('leftPanel').classList.add('show');
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Setup static frame initialization 
+        ctx.clearRect(0, 0, width, height);
+        drawStars();
     </script>
-
 </body>
 
 </html>
